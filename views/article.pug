@@ -1,0 +1,71 @@
+extends layout
+
+block content
+
+  section.post-area.section
+    .container
+      .row
+        .main-post
+          .blog-post-inner
+            .post-info
+              .left-area
+                h4.name(href='#')
+                  b #{article.author}
+                  h6.date #{moment(article.created_at).format('MMMM Do YYYY, h:mm:ss a')}
+            // post-info
+            h2.title
+              b #{article.title} 
+            p.para
+              | #{article.body}
+            hr
+            ul.errors
+              if errors
+                each error, i in errors
+                  li.alert.alert-danger #{error.msg}
+          // blog-post-inner
+        // main-post
+        .col-lg-8.col-md-12.no-right-padding
+        // col-lg-8 col-md-12
+      // row
+    // container
+  // post-area
+
+
+  section.comment-section
+    .container
+      h4
+        b Add a comment 
+      .row
+        .col-lg-12.col-md-12
+          .comment-form
+            form(method='post', action='/articles/comments/add/'+article._id)
+              .row
+                .col-sm-6
+                  input.form-control(type='text', aria-required='true', name='comment_author', placeholder='Your name', aria-invalid='true', required='')
+                // col-sm-6
+                .col-sm-6
+                  input.form-control(type='email', aria-required='true', name='comment_email', placeholder='Your email', aria-invalid='true', required='')
+                // col-sm-6
+                .col-sm-12
+                  textarea.text-area-messge.form-control(name='comment_body', rows='2', placeholder='Your comment', aria-required='true', aria-invalid='false')
+                // col-sm-12
+                .col-sm-12
+                  button#form-submit.submit-btn(name='submit', type='submit',value = 'okay')
+                    b.btn-text POST COMMENT
+                // col-sm-12
+              // row
+          // comment-form
+          h4
+            b COMMENTS
+              each comment, i in article.comments
+              
+                    .commnets-area
+                      .comment
+                        .post-info
+                          .left-area
+                            a.name(href='#')
+                              b Posted by #{comment.comment_author}
+
+                            p #{comment.comment_body}
+              
+

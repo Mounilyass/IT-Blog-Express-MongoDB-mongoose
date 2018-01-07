@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  
+  section.blog-area.section
+    .container
+      h1 #{title}
+      br
+      br
+      .row
+        each article, i in articles
+          .col-lg-4.col-md-6
+            .card.h-100
+              .single-post
+                .blog-info
+                  h6.pre-title
+                    b #{category}
+                  h4.title
+                    a(href='/articles/show/'+article._id)
+                      b
+                        | #{article.title}
+                      p
+                        | #{article.body.substr(0,200)}  ...
+                    
+                  a.name(href='#')
+                    b Posted by #{article.author}
+                  h6 On #{moment(article.created_at).format('MMMM Do YYYY, h:mm:ss a')}
+                // blog-right
+              // single-post extra-blog
+            // row
+      
+      
+      // section
